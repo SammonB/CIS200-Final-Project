@@ -1,0 +1,23 @@
+aeopijgepwoigjaespdoigjpoj
+A 6 2
+B 10 8
+A 12 4
+A 18 3
+B 19 8
+D 24 13
+A 24 3
+A 30 3
+A 34 1
+C 35 12
+B 38 7
+A 40 4
+A 46 5
+B 48 8
+A 51 5
+C 51 12
+A 56 5
+B 58 8
+A 61 3
+A 66 2
+B 67 6
+A 70 5
