@@ -2,8 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <chrono>
-#include <thread>
+#include <vector>
 using namespace std;
 
 struct Job {
@@ -48,8 +47,8 @@ public:
 	Node* getHead() const { return head; }
 	void setHead(Node* newHead) { head = newHead; }
 	void addJob(Node* newNode);
+	void addToFront(Node* newNode);
 	void popJob();
-	//void moveJob(Queue& q);
 	void printAll();
 };
 
@@ -58,8 +57,10 @@ struct CPU {
 	Job currentJob;
 	int runTime = 0;
 	int idleTime = 0;
+	void jobProcess(Queue& low, Queue& high);
 };
 
 void initializeJobs(Queue& q);
 void moveJob(Queue& to, Queue& from);
-void handleMove(int curTime, Queue& low, Queue& high, Queue& event);
+void handleMove(const int& curTime, Queue& low, Queue& high, Queue& event);
+//void assignJob(const int& curTime, Queue& low, Queue& high, CPU& cpu);

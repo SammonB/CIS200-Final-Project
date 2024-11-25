@@ -6,7 +6,8 @@ void initializeJobs(Queue& q) {
 	char a;
 	int b, c;
 	while (file >> a >> b >> c) {
-		Job j = { a, b, c };
+		Job j = { a, b, c, c};
+
 		q.addJob(new Node(j));
 	}
 	file.close();
@@ -29,8 +30,8 @@ void moveJob(Queue& to, Queue& from) {
 	}
 }
 
-void handleMove(int curTime, Queue& low, Queue& high, Queue& event) {
-	while (event.getHead()->job.arriveTime == curTime) {
+void handleMove(const int& curTime, Queue& low, Queue& high, Queue& event) {
+	while (event.getHead() && event.getHead()->job.arriveTime == curTime) {
 		if (event.getHead()->job.type == 'D') {
 			moveJob(high, event);
 		}
@@ -39,3 +40,20 @@ void handleMove(int curTime, Queue& low, Queue& high, Queue& event) {
 		}
 	}
 }
+
+/*
+void assignJob(const int& curTime, Queue& low, Queue& high, CPU& cpu) {
+	if (!cpu.isBusy) {
+		if (high.getHead()) {
+			cpu.currentJob = high.getHead()->job;
+			high.popJob();
+			cpu.isBusy = true;
+		}
+		else if (low.getHead()) {
+			cpu.currentJob = low.getHead()->job;
+			low.popJob();
+			cpu.isBusy = true;
+		}
+	}
+}
+*/

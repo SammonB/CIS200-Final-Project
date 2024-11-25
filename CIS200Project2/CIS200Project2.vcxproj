@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CPU.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Queues.cpp" />
     <ClCompile Include="SimFunctions.cpp" />

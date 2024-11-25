@@ -29,6 +29,17 @@ void Queue::addJob(Node* newNode) {
 	}
 }
 
+void Queue::addToFront(Node* newNode) {
+	if (!head) {
+		head = newNode;
+		newNode->next = nullptr;
+	}
+	else {
+		newNode->next = head;
+		head = newNode;
+	}
+}
+
 void Queue::popJob() {
 	Node* tempPtr = head;
 	head = head->next;
@@ -44,21 +55,4 @@ void Queue::printAll() {
 	}
 }
 
-/*
-void Queue::moveJob(Queue& q) {
-	if (!head) {
-		head = q.head;
-		q.head = q.head->next;
-		head->next = nullptr;
-	}
-	else {
-		Node* tempPtr = head;
-		while (tempPtr->next) {
-			tempPtr = tempPtr->next;
-		}
-		tempPtr->next = q.head;
-		q.head = q.head->next;
-		tempPtr->next = nullptr;
-	}
-}
-*/
+
