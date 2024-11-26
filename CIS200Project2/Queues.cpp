@@ -55,4 +55,52 @@ void Queue::printAll() {
 	}
 }
 
+int Queue::getSize() {
+	Node* tempPtr = head;
+	int count = 0;
+	while (tempPtr) {
+		tempPtr = tempPtr->next;
+		count++;
+	}
+	return count;
+}
 
+void Queue::addWaitTime() {
+	Node* tempPtr = head;
+	while (tempPtr) {
+		tempPtr->job.waitTime++;
+		tempPtr = tempPtr->next;
+	}
+}
+
+int Queue::tallyWaitTime() {
+	Node* tempPtr = head;
+	int count = 0;
+	while (tempPtr) {
+		count += tempPtr->job.waitTime;
+		tempPtr = tempPtr->next;
+	}
+	return count;
+}
+
+int Queue::getJobCount(const char c) {
+	Node* tempPtr = head;
+	int count = 0;
+	while (tempPtr) {
+		if (tempPtr->job.type == c) {
+			count = tempPtr->job.jobTypeNum;
+		}
+		tempPtr = tempPtr->next;
+	}
+	return count;
+}
+
+Node* Queue::getLast() {
+	Node* tempPtr = head;
+	if (head) {
+		while (tempPtr->next) {
+			tempPtr = tempPtr->next;
+		}
+	}
+	return tempPtr;
+}

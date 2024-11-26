@@ -4,10 +4,33 @@ void initializeJobs(Queue& q) {
 	fstream file("jobs.txt");
 	file.ignore(1000, '\n');
 	char a;
-	int b, c;
+	int b, c, totalCount = 0, aCount = 0, bCount = 0, cCount = 0, dCount = 0;
 	while (file >> a >> b >> c) {
-		Job j = { a, b, c, c};
-
+		totalCount++;
+		Job j = { a, b, c, c , totalCount};
+		switch (a) {
+		case 'A':{
+			aCount++;
+			j.jobTypeNum = aCount;
+			break;
+		}
+		case 'B': {
+			bCount++;
+			j.jobTypeNum = bCount;
+			break;
+		}
+		case 'C': {
+			cCount++;
+			j.jobTypeNum = cCount;
+			break;
+		}
+		case 'D': {
+			dCount++;
+			j.jobTypeNum = dCount;
+			break;
+		}
+		}
+		
 		q.addJob(new Node(j));
 	}
 	file.close();
@@ -41,19 +64,3 @@ void handleMove(const int& curTime, Queue& low, Queue& high, Queue& event) {
 	}
 }
 
-/*
-void assignJob(const int& curTime, Queue& low, Queue& high, CPU& cpu) {
-	if (!cpu.isBusy) {
-		if (high.getHead()) {
-			cpu.currentJob = high.getHead()->job;
-			high.popJob();
-			cpu.isBusy = true;
-		}
-		else if (low.getHead()) {
-			cpu.currentJob = low.getHead()->job;
-			low.popJob();
-			cpu.isBusy = true;
-		}
-	}
-}
-*/

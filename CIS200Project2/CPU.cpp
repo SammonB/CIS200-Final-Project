@@ -1,6 +1,6 @@
 #include "SimHeader.h"
 
-void CPU::jobProcess(Queue& low, Queue& high) {
+void CPU::jobProcess(Queue& low, Queue& high, Queue& done) {
 
 	if (!isBusy) {
 		if (high.getHead()) {
@@ -22,7 +22,7 @@ void CPU::jobProcess(Queue& low, Queue& high) {
 	}
 	else {
 		if (high.getHead() && currentJob.type != 'D') {
-			Job j = { currentJob.type, currentJob.arriveTime, currentJob.processTime, currentJob.remainingTime };
+			Job j = { currentJob.type, currentJob.arriveTime, currentJob.processTime, currentJob.remainingTime , currentJob.totalJobNum, currentJob.jobTypeNum};
 			currentJob = high.getHead()->job;
 			high.popJob();
 			high.addToFront(new Node(j));
@@ -33,6 +33,8 @@ void CPU::jobProcess(Queue& low, Queue& high) {
 			runTime++;
 		}
 		else {
+			Job j = { currentJob.type, currentJob.arriveTime, currentJob.processTime, currentJob.remainingTime , currentJob.totalJobNum, currentJob.jobTypeNum };
+			done.addJob(new Node(j));
 			currentJob = Job();
 			runTime++;
 			isBusy = false;
