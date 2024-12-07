@@ -3,6 +3,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <random>
+#include <ctime>
 using namespace std;
 
 struct Job {
