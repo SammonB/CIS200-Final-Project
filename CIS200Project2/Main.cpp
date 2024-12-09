@@ -3,6 +3,8 @@
 
 int main() {
 
+	fstream logFile("Log.txt");
+
 	Queue eventQueue;
 	Queue lowQueue;
 	Queue hiQueue;
@@ -61,7 +63,7 @@ int main() {
 
 		countIndex = 1;
 		for (auto& i : cpus) {
-			i.jobProcess(lowQueue, hiQueue, doneQueue);
+			i.jobProcess(currentTime, countIndex, lowQueue, hiQueue, doneQueue);
 			countIndex++;
 		}
 		
@@ -77,6 +79,20 @@ int main() {
 			waitAverageTotal += hiQueue.tallyWaitTime() / hiQueue.getSize();
 			hiQueueSizeCount += hiQueue.getSize();
 		}
+
+		writeToLog("Time " + to_string(currentTime) + ": Low Priority Queue Size: " + to_string(lowQueue.getSize()) + ", ");
+		writeToLog("High Priority Queue Size: " + to_string(hiQueue.getSize()) + "; ");
+		countIndex = 1;
+		for (auto& i : cpus) {
+			if (i.isBusy) {
+				writeToLog("CPU " + to_string(countIndex) + " run time: " + to_string(i.runTime) + "; ");
+			}
+			else {
+				writeToLog("CPU " + to_string(countIndex) + " idle time: " + to_string(i.idleTime) + "; ");
+			}
+			countIndex++;
+		}
+		writeToLog("\n");
 
 		currentTime++;
 	}
@@ -143,7 +159,7 @@ int main() {
 
 		countIndex = 1;
 		for (auto& i : cpus) {
-			i.jobProcess(lowQueue, hiQueue, doneQueue);
+			i.jobProcess(currentTime, countIndex, lowQueue, hiQueue, doneQueue);
 			countIndex++;
 		}
 
@@ -160,6 +176,18 @@ int main() {
 			hiQueueSizeCount += hiQueue.getSize();
 		}
 
+		writeToLog("Time " + to_string(currentTime) + ": Low Priority Queue Size: " + to_string(lowQueue.getSize()) + ", ");
+		writeToLog("High Priority Queue Size: " + to_string(hiQueue.getSize()) + "; ");
+		countIndex = 1;
+		for (auto& i : cpus) {
+			if (i.isBusy) {
+				writeToLog("CPU " + to_string(countIndex) + " run time: " + to_string(i.runTime) + "; ");
+			}
+			else {
+				writeToLog("CPU " + to_string(countIndex) + " idle time: " + to_string(i.idleTime) + "; ");
+			}
+			countIndex++;
+		}
 		currentTime++;
 	}
 
@@ -185,12 +213,13 @@ int main() {
 
 	countIndex = 1;
 	for (const auto& i : cpus) {
-		totalRunTime += i.runTime;
-		totalIdleTime += i.idleTime;
+		totalRunTime += i.totalRunTime;
+		totalIdleTime += i.totalIdleTime;
 	}
 	cout << "Total Run Time: " << totalRunTime << '\n';
 	cout << "Total Idle Time: " << totalIdleTime << '\n';
 
 
+	logFile.close();
 	return 0;
 }

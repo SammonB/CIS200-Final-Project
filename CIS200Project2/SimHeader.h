@@ -61,10 +61,13 @@ struct CPU {
 	bool isBusy = false;
 	Job currentJob;
 	int runTime = 0;
+	int totalRunTime = 0;
 	int idleTime = 0;
-	void jobProcess(Queue& low, Queue& high, Queue& done);
+	int totalIdleTime = 0;
+	void jobProcess(const int& curTime, const int& countIndex, Queue& low, Queue& high, Queue& done);
 };
 
 void initializeJobs(Queue& q);
 void moveJob(Queue& to, Queue& from);
 void handleMove(const int& curTime, Queue& low, Queue& high, Queue& event);
+void writeToLog(const string str);

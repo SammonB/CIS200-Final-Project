@@ -55,6 +55,7 @@ void moveJob(Queue& to, Queue& from) {
 
 void handleMove(const int& curTime, Queue& low, Queue& high, Queue& event) {
 	while (event.getHead() && event.getHead()->job.arriveTime == curTime) {
+		writeToLog("Time " + to_string(curTime) + ": Arrival: Overall Jobs: " + to_string(event.getHead()->job.totalJobNum) + ", Type " + event.getHead()->job.type + " jobs: " + to_string(event.getHead()->job.jobTypeNum) + ", Process time: " + to_string(event.getHead()->job.processTime) + '\n');
 		if (event.getHead()->job.type == 'D') {
 			moveJob(high, event);
 		}
@@ -62,5 +63,11 @@ void handleMove(const int& curTime, Queue& low, Queue& high, Queue& event) {
 			moveJob(low, event);
 		}
 	}
+}
+
+void writeToLog(const string str) {
+	fstream file("Log.txt", ios::app | ios::binary);
+
+	file << str;
 }
 
